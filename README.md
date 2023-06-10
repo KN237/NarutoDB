@@ -4,15 +4,17 @@
 
 This is a dictionery of all the characters of Naruto. Their abilities, their clans and their jutsus won't be a secret for you anymore !
 
-<img src="naruto1.PNG" />
-<img src="naruto2.PNG" />
-<img src="naruto3.PNG" />
-<img src="naruto4.PNG" />
-<img src="naruto5.PNG" />
-<img src="naruto6.PNG" />
-<img src="naruto7.PNG" />
-<img src="naruto8.PNG" />
-<img src="naruto9.PNG" />
+<img align="left" src="naruto1.png" width="250" />
+<img align="left" src="naruto2.png" width="250" />
+<img align="left" src="naruto3.png" width="250"/>
+
+<img align="left" src="naruto4.png" width="250"/>
+<img align="left" src="naruto5.png" width="250"/>
+<img align="left" src="naruto6.png" width="250"/>
+
+<img align="left" src="naruto7.png" width="250"/>
+<img align="left" src="naruto8.png" width="250"/>
+<img  src="naruto9.png" width="250"/>
 
 # This has the following features
 
