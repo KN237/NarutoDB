@@ -2,7 +2,7 @@
 
 # Naructionary
 
-This is a dictionery of all the characters of Naruto. Their abilities, their clans and their jutsus won't be a secret for you anymore !
+This is a dictionary of all the characters of Naruto. Their abilities, their clans and their jutsus won't be a secret for you anymore !
 
 <img align="left" src="naruto1.png" width="250" />
 <img align="left" src="naruto2.png" width="250" />
