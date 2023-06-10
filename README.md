@@ -1,16 +1,33 @@
-# naruto
 
-A new Flutter project.
 
-## Getting Started
+# Naructionary
 
-This project is a starting point for a Flutter application.
+This is a dictionery of all the characters of Naruto. Their abilities, their clans and their jutsus won't be a secret for you anymore !
 
-A few resources to get you started if this is your first Flutter project:
+<img src="naruto1.PNG" />
+<img src="naruto2.PNG" />
+<img src="naruto3.PNG" />
+<img src="naruto4.PNG" />
+<img src="naruto5.PNG" />
+<img src="naruto6.PNG" />
+<img src="naruto7.PNG" />
+<img src="naruto8.PNG" />
+<img src="naruto9.PNG" />
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+# This has the following features
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- List of characters (random)
+- List of characters (by clan)
+- Characters search
+- Read character informations
+
+
+# What's left ?
+
+I have still have to add some additional features as :
+
+- favorite characters system
+- List of characters (by village)
+- List of characters (by teams)
+- Internationalisation
+
