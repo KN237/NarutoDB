@@ -96,6 +96,7 @@ class _FifthScreenState extends State<FifthScreen> {
     }
 
     Widget list = ListView(
+      physics: BouncingScrollPhysics(),
       children: tmp,
     );
 

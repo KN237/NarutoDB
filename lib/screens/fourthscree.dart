@@ -80,6 +80,7 @@ class _FourthScreenState extends State<FourthScreen> {
     }
 
     Widget list = ListView(
+      physics: BouncingScrollPhysics(),
       children: tmp,
     );
 
