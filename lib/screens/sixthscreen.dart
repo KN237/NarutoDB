@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:naruto/network/helper.dart';
 import '/utilities/widget.dart';
 import 'thirdscreen.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class SixthScreen extends StatefulWidget {
   SixthScreen({this.name});
@@ -57,9 +58,11 @@ class _SixthScreenState extends State<SixthScreen> {
                   width: MediaQuery.of(context).size.width / 3,
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: NetworkImage(element.images.length > 0
-                              ? element.images[0]
-                              : 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930'),
+                          image: CachedNetworkImageProvider(
+                            element.images.length > 0
+                                ? element.images[0]
+                                : 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930',
+                          ),
                           fit: BoxFit.cover),
                       borderRadius: BorderRadius.circular(10)),
                 ),

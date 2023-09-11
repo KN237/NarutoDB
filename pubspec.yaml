@@ -39,6 +39,7 @@ dependencies:
   flutter_native_splash: any
   quickalert: ^1.0.1
   shared_preferences: ^2.1.2
+  cached_network_image: ^3.2.3
 
 dev_dependencies:
   flutter_test:

@@ -7,6 +7,7 @@ import 'package:naruto/screens/thirdscreen.dart';
 import 'package:naruto/utilities/widget.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class SeventhScreen extends StatefulWidget {
   @override
@@ -55,9 +56,11 @@ class _SeventhScreenState extends State<SeventhScreen> {
                   width: MediaQuery.of(context).size.width / 3,
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: NetworkImage(element.images.length > 0
-                              ? element.images[0]
-                              : 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930'),
+                          image: CachedNetworkImageProvider(
+                            element.images.length > 0
+                                ? element.images[0]
+                                : 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930',
+                          ),
                           fit: BoxFit.cover),
                       borderRadius: BorderRadius.circular(10)),
                 ),

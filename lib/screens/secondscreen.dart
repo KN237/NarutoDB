@@ -8,6 +8,7 @@ import 'package:naruto/screens/thirdscreen.dart';
 import 'package:naruto/utilities/widget.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class SecondScreen extends StatefulWidget {
   @override
@@ -73,6 +74,7 @@ class _SecondScreenState extends State<SecondScreen> {
     }
 
     Widget list = ListView(
+      physics: BouncingScrollPhysics(),
       scrollDirection: Axis.horizontal,
       children: tmp,
     );
@@ -105,9 +107,11 @@ class _SecondScreenState extends State<SecondScreen> {
                   width: MediaQuery.of(context).size.width / 3,
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: NetworkImage(element.images.length > 0
-                              ? element.images[0]
-                              : 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930'),
+                          image: CachedNetworkImageProvider(
+                            element.images.length > 0
+                                ? element.images[0]
+                                : 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930',
+                          ),
                           fit: BoxFit.cover),
                       borderRadius: BorderRadius.circular(10)),
                 ),
@@ -144,6 +148,7 @@ class _SecondScreenState extends State<SecondScreen> {
     }
 
     Widget list = ListView(
+      physics: BouncingScrollPhysics(),
       children: tmp,
     );
 
@@ -227,123 +232,77 @@ class _SecondScreenState extends State<SecondScreen> {
             color: Colors.grey[100],
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(40), topRight: Radius.circular(40))),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 40.0, top: 40),
-                  child: Text('Search For a Character',
-                      style: TextStyle(
-                          fontFamily: 'Nexa',
-                          fontWeight: FontWeight.w900,
-                          fontSize: 20,
-                          color: Colors.black)),
+        child: RefreshIndicator(
+          color: Color(0xffffa462),
+          onRefresh: () async {
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) {
+              return SecondScreen();
+            }));
+          },
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 40.0, top: 40),
+                    child: Text('Search For a Character',
+                        style: TextStyle(
+                            fontFamily: 'Nexa',
+                            fontWeight: FontWeight.w900,
+                            fontSize: 20,
+                            color: Colors.black)),
+                  ),
+                  SizedBox()
+                ],
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 1.2,
+                height: 60,
+                child: TextField(
+                  textInputAction: TextInputAction.search,
+                  controller: searchKey,
+                  onEditingComplete: () {
+                    print(searchKey.text);
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return FifthScreen(
+                        name: searchKey.text,
+                      );
+                    }));
+                  },
+                  cursorColor: Colors.black12,
+                  cursorWidth: 1,
+                  textAlignVertical: TextAlignVertical.bottom,
+                  style: TextStyle(fontSize: 12),
+                  maxLength: 20,
+                  decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      prefixIcon: Icon(Icons.search),
+                      prefixIconColor: Colors.black12,
+                      hintText: 'Search...',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.horizontal(
+                              left: Radius.circular(40),
+                              right: Radius.circular(40)),
+                          borderSide: BorderSide.none)),
                 ),
-                SizedBox()
-              ],
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width / 1.2,
-              height: 60,
-              child: TextField(
-                textInputAction: TextInputAction.search,
-                controller: searchKey,
-                onEditingComplete: () {
-                  print(searchKey.text);
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return FifthScreen(
-                      name: searchKey.text,
-                    );
-                  }));
-                },
-                cursorColor: Colors.black12,
-                cursorWidth: 1,
-                textAlignVertical: TextAlignVertical.bottom,
-                style: TextStyle(fontSize: 12),
-                maxLength: 20,
-                decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.white,
-                    prefixIcon: Icon(Icons.search),
-                    prefixIconColor: Colors.black12,
-                    hintText: 'Search...',
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.horizontal(
-                            left: Radius.circular(40),
-                            right: Radius.circular(40)),
-                        borderSide: BorderSide.none)),
               ),
-            ),
-            Container(
-              width: double.infinity,
-              height: 90,
-              margin: EdgeInsets.only(left: 10, top: 20, bottom: 20),
-              child: FutureBuilder(
-                builder: (ctx, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    // If we got an error
-                    if (snapshot.hasError) {
-                      return Center();
-
-                      // if we got our data
-                    } else if (snapshot.hasData) {
-                      return snapshot.data as Widget;
-                    }
-                  }
-                  // Displaying LoadingSpinner to indicate waiting state
-                  return Center(
-                    child: CircularProgressIndicator(
-                      color: orange,
-                    ),
-                  );
-                },
-
-                // Future that needs to be resolved
-                // inorder to display something on the Canvas
-                future: cl,
-              ),
-            ),
-            Container(
-              child: Expanded(
+              Container(
+                width: double.infinity,
+                height: 90,
+                margin: EdgeInsets.only(left: 10, top: 20, bottom: 20),
                 child: FutureBuilder(
                   builder: (ctx, snapshot) {
                     if (snapshot.connectionState == ConnectionState.done) {
                       // If we got an error
                       if (snapshot.hasError) {
-                        return Center(
-                            child: Column(
-                          children: [
-                            Text(
-                              snapshot.error.toString(),
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.black12,
-                                  fontFamily: 'Nexa',
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.w900),
-                            ),
-                            GestureDetector(
-                                onTap: () {
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (BuildContext context) =>
-                                              super.widget));
-                                },
-                                child: Text(
-                                  'Retry',
-                                  style: TextStyle(
-                                      color: orange,
-                                      fontSize: 15,
-                                      decoration: TextDecoration.underline),
-                                )),
-                          ],
-                        ));
+                        return Center();
 
                         // if we got our data
                       } else if (snapshot.hasData) {
@@ -360,11 +319,67 @@ class _SecondScreenState extends State<SecondScreen> {
 
                   // Future that needs to be resolved
                   // inorder to display something on the Canvas
-                  future: gen,
+                  future: cl,
                 ),
               ),
-            )
-          ],
+              Container(
+                child: Expanded(
+                  child: FutureBuilder(
+                    builder: (ctx, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        // If we got an error
+                        if (snapshot.hasError) {
+                          return Center(
+                              child: Column(
+                            children: [
+                              Text(
+                                snapshot.error.toString(),
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.black12,
+                                    fontFamily: 'Nexa',
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.w900),
+                              ),
+                              GestureDetector(
+                                  onTap: () {
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (BuildContext context) =>
+                                                super.widget));
+                                  },
+                                  child: Text(
+                                    'Retry',
+                                    style: TextStyle(
+                                        color: orange,
+                                        fontSize: 15,
+                                        decoration: TextDecoration.underline),
+                                  )),
+                            ],
+                          ));
+
+                          // if we got our data
+                        } else if (snapshot.hasData) {
+                          return snapshot.data as Widget;
+                        }
+                      }
+                      // Displaying LoadingSpinner to indicate waiting state
+                      return Center(
+                        child: CircularProgressIndicator(
+                          color: orange,
+                        ),
+                      );
+                    },
+
+                    // Future that needs to be resolved
+                    // inorder to display something on the Canvas
+                    future: gen,
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
